@@ -1,0 +1,141 @@
+.dashboard-page {
+  min-height: 100vh;
+  padding: 28px;
+  background:
+    linear-gradient(135deg, rgba(22, 119, 255, 0.04), rgba(82, 196, 26, 0.03)),
+    #f5f7fa;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dashboard-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dashboard-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: white;
+  padding: 6px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-title {
+  margin: 0 !important;
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  color: #1f2937 !important;
+}
+
+.dashboard-subtitle {
+  margin-top: 2px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.dashboard-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(8px);
+}
+
+.dashboard-filters {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.dashboard-select {
+  width: 280px;
+}
+
+.dashboard-select .ant-select-selector {
+  height: 44px !important;
+  border-radius: 12px !important;
+  display: flex;
+  align-items: center;
+  padding: 0 14px !important;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.dashboard-action-button {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.refresh-btn {
+    width: 60px !important;
+    height: 60px !important;
+    background: #1677ff !important;
+    border-color: #1677ff !important;
+}
+
+.logout-btn {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px !important;
+}
+
+.chart-card {
+  border-radius: 18px !important;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08) !important;
+  border: none !important;
+  overflow: hidden;
+}
+
+.chart-card .ant-card-head {
+  min-height: 56px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.chart-card .ant-card-head-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.chart-card .ant-card-body {
+  padding: 18px !important;
+}
+
+@media (max-width: 992px) {
+  .dashboard-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dashboard-filters {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .dashboard-select {
+    width: 100%;
+  }
+
+  .dashboard-actions {
+    justify-content: flex-end;
+  }
+}

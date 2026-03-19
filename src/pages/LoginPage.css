@@ -1,0 +1,146 @@
+.login-page-v2 {
+  min-height: 100vh;
+  display: flex;
+  background: #f3f3f3;
+}
+
+.login-left {
+  flex: 1;
+  background: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.login-illustration {
+  width: 100%;
+  max-width: 520px;
+  object-fit: contain;
+}
+
+.login-right {
+  flex: 1;
+  background: #1976d2;
+  border-top-left-radius: 36px;
+  border-bottom-left-radius: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-right::before,
+.login-right::after {
+  content: '';
+  position: absolute;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.login-right::before {
+  width: 420px;
+  height: 420px;
+  right: -180px;
+  bottom: -180px;
+}
+
+.login-right::after {
+  width: 320px;
+  height: 320px;
+  right: -130px;
+  bottom: -130px;
+}
+
+.login-card-v2 {
+  width: 100%;
+  max-width: 430px;
+  border-radius: 18px !important;
+  padding: 18px 12px 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12) !important;
+  position: relative;
+  z-index: 1;
+}
+
+.login-header-v2 {
+  margin-bottom: 28px;
+}
+
+.login-title-v2 {
+  margin-bottom: 8px !important;
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;
+  color: #222 !important;
+}
+
+.login-subtitle-v2 {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.login-form-v2 .ant-form-item {
+  margin-bottom: 18px;
+}
+
+.login-input-v2,
+.login-input-v2.ant-input-affix-wrapper {
+  height: 54px;
+  border-radius: 999px !important;
+  padding-left: 14px;
+  border: 1px solid #d9d9d9 !important;
+  box-shadow: none !important;
+}
+
+.login-input-v2 .anticon,
+.login-form-v2 .ant-input-prefix {
+  color: #9ca3af;
+  margin-right: 8px;
+}
+
+.remember-row {
+  margin-top: -4px;
+  margin-bottom: 20px !important;
+}
+
+.remember-row .ant-checkbox-wrapper {
+  color: #4b5563;
+  font-size: 15px;
+}
+
+.login-button-v2 {
+  height: 54px;
+  border-radius: 999px !important;
+  font-size: 18px;
+  font-weight: 600;
+  background: #1976d2 !important;
+  border-color: #1976d2 !important;
+  box-shadow: none !important;
+}
+
+.login-button-v2:hover {
+  background: #1565c0 !important;
+  border-color: #1565c0 !important;
+}
+
+@media (max-width: 992px) {
+  .login-page-v2 {
+    flex-direction: column;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    flex: none;
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  .login-card-v2 {
+    max-width: 420px;
+  }
+}

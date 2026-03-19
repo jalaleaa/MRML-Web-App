@@ -1,16 +1,18 @@
-import { Card, Form, Input, Button, Typography, message } from 'antd'
+import { Card, Form, Input, Button, Typography, message, Checkbox } from 'antd'
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
+import './LoginPage.css'
 
-const { Title } = Typography
+const { Title, Text } = Typography
 
 function LoginPage({ setIsLoggedIn }) {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
   const onFinish = async (values) => {
-    const { username, password } = values
+    const { username, password, remember } = values
 
     setLoading(true)
 
@@ -36,6 +38,12 @@ function LoginPage({ setIsLoggedIn }) {
       localStorage.setItem('token', token)
       localStorage.setItem('user_detail', JSON.stringify(userDetail || {}))
 
+      if (remember) {
+        localStorage.setItem('remember_username', username)
+      } else {
+        localStorage.removeItem('remember_username')
+      }
+
       setIsLoggedIn(true)
       message.success('Login success')
       navigate('/dashboard', { replace: true })
@@ -53,34 +61,83 @@ function LoginPage({ setIsLoggedIn }) {
   }
 
   return (
-    <div className="login-page">
-      <Card className="login-card">
-        <Title level={2} style={{ textAlign: 'center' }}>
-          Login
-        </Title>
+    <div className="login-page-v2">
+      <div className="login-left">
+        <img
+          src="/logo.png"
+          alt="Login Illustration"
+          className="login-illustration"
+        />
+      </div>
 
-        <Form layout="vertical" onFinish={onFinish}>
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please enter username' }]}
+      <div className="login-right">
+        <Card className="login-card-v2" bordered={false}>
+          <div className="login-header-v2">
+            <Title level={1} className="login-title-v2">
+              Hello!
+            </Title>
+            <Text className="login-subtitle-v2">
+              Sign in to get started
+            </Text>
+          </div>
+
+          <Form
+            layout="vertical"
+            onFinish={onFinish}
+            className="login-form-v2"
+            autoComplete='on'
+            initialValues={{
+              username: localStorage.getItem('remember_username') || '',
+              remember: !!localStorage.getItem('remember_username'),
+            }}
           >
-            <Input placeholder="Enter username" />
-          </Form.Item>
+            <Form.Item
+              name="username"
+              rules={[{ required: true, message: 'Please enter username' }]}
+            >
+              <Input
+                size="large"
+                placeholder="Username"
+                prefix={<UserOutlined />}
+                className="login-input-v2"
+                autoComplete='username'
+              />
+            </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please enter password' }]}
-          >
-            <Input.Password placeholder="Enter password" />
-          </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[{ required: true, message: 'Please enter password' }]}
+            >
+              <Input.Password
+                size="large"
+                placeholder="Password"
+                prefix={<LockOutlined />}
+                className="login-input-v2"
+                autoComplete='current-password'
+              />
+            </Form.Item>
 
-          <Button type="primary" htmlType="submit" block loading={loading}>
-            Login
-          </Button>
-        </Form>
-      </Card>
+            <Form.Item
+              name="remember"
+              valuePropName="checked"
+              className="remember-row"
+            >
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              loading={loading}
+              size="large"
+              className="login-button-v2"
+            >
+              Login
+            </Button>
+          </Form>
+        </Card>
+      </div>
     </div>
   )
 }

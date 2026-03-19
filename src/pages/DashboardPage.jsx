@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ReactECharts from 'echarts-for-react'
 import * as echarts from 'echarts'
+import './DashboardPage.css'
 
 
 const { Title } = Typography
@@ -94,7 +95,7 @@ function DashboardPage({ setIsLoggedIn }) {
         top: 30,
         left: 50,
         right: 30,
-        bottom: 80
+        bottom: 110
       },
       xAxis: {
         type: 'category',
@@ -114,7 +115,7 @@ function DashboardPage({ setIsLoggedIn }) {
           type: 'slider',
           start: 0,
           end: endPercent,
-          bottom: 20,
+          bottom: 10,
           height: 20
         },
         {
@@ -230,7 +231,7 @@ function DashboardPage({ setIsLoggedIn }) {
       }
     } catch (error) {
       console.error('Logout API error:', error)
-      
+
     } finally {
       localStorage.removeItem('token')
       localStorage.removeItem('user_detail')
@@ -238,8 +239,8 @@ function DashboardPage({ setIsLoggedIn }) {
       setIsLoggedIn(false)
       message.success('Logged out')
       navigate('/', { replace: true })
+    }
   }
-}
 
   useEffect(() => {
     autoRefreshIntervalRef.current = setInterval(() => {
@@ -310,78 +311,81 @@ function DashboardPage({ setIsLoggedIn }) {
   }, [chartData, selectedNode, timeRange])
 
   return (
-    <div style={{ padding: '24px', minHeight: '100vh', background: '#f5f7fa' }}>
-      <Title level={2} style={{ marginBottom: 20 }}>
-        MRML Web App
-      </Title>
-
-      <Row align="middle" justify="space-between" style={{ marginBottom: 20 }}>
-        <Col flex="auto">
-          <div style={{ display: 'flex', gap: 16, maxWidth: 700 }}>
-            <Select
-              placeholder="Select Node"
-              style={{ width: 320 }}
-              value={selectedNode}
-              onChange={(value) => {
-                setSelectedNode(value)
-                updateActivity()
-              }}
-            >
-              {nodeList.map((node) => (
-                <Option key={node.id} value={node.id}>
-                  NODE : {node.id}
-                </Option>
-              ))}
-            </Select>
-
-            <Select
-              style={{ width: 320, height: 40 }}
-              value={timeRange}
-              onChange={(value) => {
-                setTimeRange(value)
-                updateActivity()
-              }}
-            >
-              <Option value="1h">1 Hour</Option>
-              <Option value="3h">3 Hours</Option>
-              <Option value="6h">6 Hours</Option>
-              <Option value="12h">12 Hours</Option>
-              <Option value="1d">1 Day</Option>
-              <Option value="7d">7 Days</Option>
-              <Option value="30d">30 Days</Option>
-              <Option value="3M">3 Months</Option>
-              <Option value="1Y">1 Year</Option>
-            </Select>
+    <div className="dashboard-page">
+      <div className="dashboard-header">
+        <div className="dashboard-header-left">
+          <img src="/logo.png" alt="MRML Logo" className="dashboard-logo" />
+          <div>
+            <Title level={2} className="dashboard-title">
+              MRML Web App
+            </Title>
           </div>
-        </Col>
+        </div>
+      </div>
 
-        <Col flex="none">
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
-            <Button
-              type="primary"
-              icon={<ReloadOutlined />}
-              onClick={() => {
-                handleRefresh()
-                message.loading('REFRESHING...', 1)
-              }}
-              style={{ width: 60, height: 60 }}
-            />
-            <Button
-              danger
-              icon={<LogoutOutlined />}
-              onClick={() => {
-                handleLogout()
-                message.warning('LOGGING OUT...', 1)
-              }}
-              style={{ width: 60, height: 60 }}
-            />
-          </div>
-        </Col>
-      </Row>
+      <div className="dashboard-toolbar">
+        <div className="dashboard-filters">
+          <Select
+            placeholder="Select Node"
+            className="dashboard-select"
+            value={selectedNode}
+            onChange={(value) => {
+              setSelectedNode(value)
+              updateActivity()
+            }}
+          >
+            {nodeList.map((node) => (
+              <Option key={node.id} value={node.id}>
+                NODE : {node.id}
+              </Option>
+            ))}
+          </Select>
 
-      <Row gutter={[16, 16]}>
+          <Select
+            className="dashboard-select"
+            value={timeRange}
+            onChange={(value) => {
+              setTimeRange(value)
+              updateActivity()
+            }}
+          >
+            <Option value="1h">1 Hour</Option>
+            <Option value="3h">3 Hours</Option>
+            <Option value="6h">6 Hours</Option>
+            <Option value="12h">12 Hours</Option>
+            <Option value="1d">1 Day</Option>
+            <Option value="7d">7 Days</Option>
+            <Option value="30d">30 Days</Option>
+            <Option value="3M">3 Months</Option>
+            <Option value="1Y">1 Year</Option>
+          </Select>
+        </div>
+
+        <div className="dashboard-actions">
+          <Button
+            type="primary"
+            icon={<ReloadOutlined />}
+            onClick={() => {
+              handleRefresh()
+              message.loading('REFRESHING...', 1)
+            }}
+            className="dashboard-action-button refresh-btn"
+          />
+          <Button
+            danger
+            icon={<LogoutOutlined />}
+            onClick={() => {
+              handleLogout()
+              message.warning('LOGGING OUT...', 1)
+            }}
+            className="dashboard-action-button logout-btn"
+          />
+        </div>
+      </div>
+
+      <Row gutter={[20, 20]}>
         <Col xs={24} md={12}>
-          <Card title="Raw_Data_Chart">
+          <Card title="Raw Data Chart" className="chart-card">
             <ReactECharts
               ref={chartRef1}
               option={buildChartOption(chartData, 'translation_x', 'translation_x', '#1677ff')}
@@ -393,7 +397,7 @@ function DashboardPage({ setIsLoggedIn }) {
         </Col>
 
         <Col xs={24} md={12}>
-          <Card title="Translation_Chart">
+          <Card title="Translation Chart" className="chart-card">
             <ReactECharts
               ref={chartRef2}
               option={buildChartOption(chartData, 'translation_y', 'translation_y', '#52c41a')}
@@ -405,7 +409,7 @@ function DashboardPage({ setIsLoggedIn }) {
         </Col>
 
         <Col xs={24} md={12}>
-          <Card title="Zeta_Chart">
+          <Card title="Zeta Chart" className="chart-card">
             <ReactECharts
               ref={chartRef3}
               option={buildChartOption(chartData, 'zeta', 'zeta', '#fa8c16')}
@@ -414,10 +418,6 @@ function DashboardPage({ setIsLoggedIn }) {
               lazyUpdate={true}
             />
           </Card>
-        </Col>
-
-        <Col xs={24} md={12}>
-          <div style={{ height: '100%' }} />
         </Col>
       </Row>
     </div>
