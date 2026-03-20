@@ -336,7 +336,7 @@ function DashboardPage({ setIsLoggedIn }) {
           >
             {nodeList.map((node) => (
               <Option key={node.id} value={node.id}>
-                NODE : {node.id}
+                NODE S/N : {node.node_sn}
               </Option>
             ))}
           </Select>
